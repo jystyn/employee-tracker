@@ -1,6 +1,7 @@
-const mysql = require("mysql2/promise");
+const mysql = require('mysql2/promise');
 const inquirer = require('inquirer');
-const cTable = require("console.table");
+const cTable = require('console.table');
+const db = require('./db/connection');
 
 const promptUser = () => {
     inquirer.prompt([
@@ -22,19 +23,19 @@ const promptUser = () => {
         .then((choose) => {
             switch (choose.option) {
                 case "View all Employees":
-                    console.log('Opened View all Employees');
+                    viewAllEmployees();
                     break;
                 case "Add Employee":
                     console.log('Opened Add Employee');
                     break;
                 case "View all Departments":
-                    console.log('Opened View all Departments');
+                    viewAllDepartments();
                     break;
                 case "Add Department":
                     console.log('Opened Add Department');
                     break;
                 case "View all Roles":
-                    console.log('Opened View all Roles');
+                    viewAllRoles();
                     break;
                 case "Add Role":
                     console.log('Opened Add Role');
@@ -44,6 +45,34 @@ const promptUser = () => {
                     break;
             }
     })
+};
+
+function viewAllEmployees(){
+    console.log('Showing all employees...\n\n');
+    const employees = `SELECT 
+        employee.id,
+        employee.first_name,
+        employee.last_name,
+        department.name AS department,
+        role.title,
+        role.salary,
+        FROM employee`;
+
+    db.query(employees, (err, res) => {
+        if(err) return console.log(err);
+
+        // console.table(res);
+        // promptUser();
+        console.log(res);
+        });
+};
+ 
+function viewAllDepartments(){
+
+};
+
+function viewAllRoles(){
+
 };
 
 promptUser();
