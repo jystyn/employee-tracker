@@ -2,10 +2,10 @@ use employee_db;
 
 INSERT INTO department (dept_name)
 VALUES
+('Sales'),
 ('Engineering'),
 ('Finance'),
-('Legal'),
-('Sales');
+('Legal');
 
 INSERT INTO role (title, salary, department_id)
 VALUES
@@ -21,10 +21,12 @@ VALUES
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
 ('Jerry', 'Smith', 2, null),
-('Rick', 'Sanchez', 3, 3),
-('Sarah', 'Green', 6, 6),
+('Rick', 'Sanchez', 3, 2),
+('Sarah', 'Green', 6, null),
 ('Bob', 'Loblaw', 8, null),
 ('John', 'Smith', 4, null),
-('Jane', 'Doe', 7, 7),
+('Jane', 'Doe', 7, 4),
 ('Don', 'Draper', 1, 1),
-('Pam', 'Beasley', 5, null);
+('Pam', 'Beasley', 5, 3);
+
+-- DELETE FROM employee WHERE id = 1

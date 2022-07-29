@@ -1,4 +1,4 @@
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const db = require('./db/connection');
@@ -48,27 +48,32 @@ const promptUser = () => {
 };
 
 function viewAllEmployees(){
-    console.log('Showing all employees...\n\n');
-    const employees = `SELECT 
+    console.log('\n\n');
+    const sql = `
+        SELECT 
         employee.id,
-        employee.first_name,
-        employee.last_name,
-        department.name AS department,
+        employee.first_name AS 'first name',
+        employee.last_name AS 'last name',
+        department.dept_name AS department,
         role.title,
-        role.salary,
-        FROM employee`;
+        role.salary
+        FROM employee
+            LEFT JOIN role ON employee.role_id = role.id
+            LEFT JOIN department ON role.department_id = department.id
+        `;
 
-    db.query(employees, (err, res) => {
+    db.query(sql, (err, data) => {
         if(err) return console.log(err);
-
-        // console.table(res);
-        // promptUser();
-        console.log(res);
+        
+        console.table(data);
+        promptUser();
         });
 };
  
 function viewAllDepartments(){
-
+    console.log('\n\n');
+    const sql = `
+    `;
 };
 
 function viewAllRoles(){
