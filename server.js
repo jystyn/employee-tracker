@@ -181,7 +181,7 @@ function addEmployee() {
 
                                     db.query(sql, employeeData, (err, data) => {
                                         if (err) return console.log(err);
-                                        console.log('\nEmployee has been added!\n\n')
+                                        console.log(`\n${input.first_name} ${input.last_name} added to Employees!\n\n`)
                                         promptUser();
                                     });
                                 });
@@ -192,7 +192,30 @@ function addEmployee() {
 };
 
 function addDepartment() {
-    console.log("opened add department");
+    inquirer.prompt([
+        {
+            name: 'department',
+            message: 'Enter the new department name',
+            validate: departmentName => {
+                if (departmentName) {
+                    return true;
+                } else {
+                    console.log("Please enter department name.")
+                    return false;
+                };
+            }
+        }
+    ])
+        .then(input => {
+            const newDepartment = [input.department];
+            const sql = `INSERT INTO department (dept_name) VALUE (?)`;
+
+            db.query(sql, newDepartment, (err, data) => {
+                if (err) return console.log(err);
+                console.log(`\n${input.department} added to departments!\n\n`)
+                promptUser();
+            });
+        });
 };
 
 function addRole() {
