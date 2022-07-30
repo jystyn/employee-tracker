@@ -4,7 +4,6 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon server.js",
     "start": "node server.js"
   },
   "repository": {
@@ -21,7 +20,6 @@
   "dependencies": {
     "console.table": "^0.10.0",
     "figlet": "^1.5.2",
-    "figlet-cli": "^0.1.1",
     "inquirer": "^8.2.4",
     "mysql2": "^2.3.3"
   },

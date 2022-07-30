@@ -3,6 +3,7 @@ const cTable = require('console.table');
 const figlet = require('figlet')
 const db = require('./db/connection');
 
+// This is the sweet Employee Tracker title graphic that shows up when the user starts the app
 function start() {
     figlet('Employee\n\n\nTracker', function(err, data) {
         if (err) {
@@ -16,7 +17,7 @@ function start() {
     
 };
 
-
+// Main Menu where the user chooses a option
 function mainMenu() {
     console.log('\nMain Menu\n=========')
     inquirer.prompt([
@@ -62,6 +63,7 @@ function mainMenu() {
         });
 };
 
+// This shows the user all the employee names, departments, titles, and salaries in the database
 function viewAllEmployees() {
     console.log('\n\nAll Employees\n==============');
     const sql = `
@@ -77,6 +79,7 @@ function viewAllEmployees() {
             LEFT JOIN department ON role.department_id = department.id
         `;
 
+    // This gets the above information from mysql database and displays it in a table using console.table
     db.query(sql, (err, data) => {
         if (err) return console.log(err);
 
@@ -85,6 +88,7 @@ function viewAllEmployees() {
     });
 };
 
+// This shows all the departments and their id's inside the database
 function viewAllDepartments() {
     console.log('\n\nAll Departments\n===============');
     const sql = `
@@ -94,6 +98,7 @@ function viewAllDepartments() {
     FROM department
     `;
 
+    // This gets the above information from mysql database and displays it in a table using console.table
     db.query(sql, (err, data) => {
         if (err) return console.log(err);
 
@@ -102,6 +107,7 @@ function viewAllDepartments() {
     });
 };
 
+// This shows the user the role id's, titles, departments, and salaries of all employees in the database
 function viewAllRoles() {
     console.log('\n\nAll Roles\n=========');
     const sql = `
@@ -114,6 +120,7 @@ function viewAllRoles() {
         LEFT JOIN department ON role.department_id = department.id
     `;
 
+    // This gets the above information from mysql database and displays it in a table using console.table
     db.query(sql, (err, data) => {
         if (err) return console.log(err);
 
@@ -122,6 +129,7 @@ function viewAllRoles() {
     });
 };
 
+// This adds a employee to the database by asking the user to enter first and last name, assign a role and a manager
 function addEmployee() {
     inquirer.prompt([
         {
@@ -154,6 +162,7 @@ function addEmployee() {
 
             const sql = `SELECT role.id, role.title FROM role`;
 
+            //This allows us to get the list of roles from the database
             db.query(sql, (err, data) => {
                 if (err) return console.log(err);
 
@@ -173,6 +182,7 @@ function addEmployee() {
 
                         const sql = `SELECT * FROM employee`;
 
+                        // This allows us to get a list of all employees from the database
                         db.query(sql, (err, data) => {
                             if (err) return console.log(err);
                             const managers = data.map(({ id, first_name, last_name }) => ({ name: first_name + ' ' + last_name, value: id }));
@@ -195,6 +205,7 @@ function addEmployee() {
                         VALUES (?, ?, ?, ?)
                         `;
 
+                                    // This allows us to add the employee to the database
                                     db.query(sql, employeeData, (err, data) => {
                                         if (err) return console.log(err);
                                         console.log(`\n${input.first_name} ${input.last_name} added to Employees!\n\n`)
@@ -207,6 +218,7 @@ function addEmployee() {
         });
 };
 
+// This adds a department to the database 
 function addDepartment() {
     inquirer.prompt([
         {
@@ -226,6 +238,7 @@ function addDepartment() {
             const newDepartment = [input.department];
             const sql = `INSERT INTO department (dept_name) VALUE (?)`;
 
+            // This allows us to insert the department into the database
             db.query(sql, newDepartment, (err, data) => {
                 if (err) return console.log(err);
                 console.log(`\n${input.department} added to departments!\n\n`)
@@ -237,6 +250,7 @@ function addDepartment() {
 function addRole() {
     const sql = `SELECT department.id, department.dept_name FROM department`;
 
+    // This allows us to have a list of departments for the user to choose from to add the role
     db.query(sql, (err, data) => {
         if (err) return console.log(err);
 
@@ -283,6 +297,7 @@ function addRole() {
             VALUES (?, ?, ?)
             `;
 
+                //This enters the role into the database
                 db.query(sql, roleData, (err, data) => {
                     if (err) return console.log(err);
                     console.log(`\n${input.role} was added to roles!\n\n`);
