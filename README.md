@@ -29,6 +29,8 @@
   ```
 
   ## Usage
+  
+  [employee-tracker-demo](https://user-images.githubusercontent.com/106487718/181871590-2cbc0f1b-e808-4d62-99df-41c820f7492e.webm)
 
   ![employee-tracker-screenshot-1](./images/employee-tracker-screenshot-1.png)
   ![employee-tracker-screenshot-2](./images/employee-tracker-screenshot-2.png)
