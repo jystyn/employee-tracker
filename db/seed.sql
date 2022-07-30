@@ -20,13 +20,15 @@ VALUES
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-('Jerry', 'Smith', 2, null),
-('Rick', 'Sanchez', 3, 2),
-('Sarah', 'Green', 6, null),
-('Bob', 'Loblaw', 8, null),
-('John', 'Smith', 4, null),
-('Jane', 'Doe', 7, 4),
-('Don', 'Draper', 1, 1),
-('Pam', 'Beasley', 5, 3);
+('Jerry', 'Smith', 2, 1),
+('Rick', 'Sanchez', 3, null),
+('Sarah', 'Green', 6, 1),
+('Bob', 'Loblaw', 8, 1),
+('John', 'Smith', 4, 2),
+('Jane', 'Doe', 7, null),
+('Don', 'Draper', 1, null),
+('Pam', 'Beasley', 5, null);
 
--- DELETE FROM employee WHERE id = 1
+-- DELETE FROM department WHERE id = 1;
+-- DELETE FROM roles WHERE id = 1;
+-- DELETE FROM employee WHERE id = 1;
